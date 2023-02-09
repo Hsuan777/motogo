@@ -1,18 +1,26 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import SignInBtn from "../components/SignInBtn.vue";
+import SignInBtn from "@/components/SignInBtn.vue";
 </script>
 
 <template>
   <header class="container">
     <nav class="flex items-center my-4">
-      <h1 class="text-black mr-auto">MOTO GO</h1>
+      <h1 class="text-black mr-auto text-2xl leading-normal">
+        <RouterLink to="/">MOTO GO</RouterLink>
+      </h1>
       <ul class="flex items-center">
-        <li class="">
-          <RouterLink to="/">Home</RouterLink>
-        </li>
         <li class="mx-3">
           <RouterLink to="/todo">行前清點</RouterLink>
+        </li>
+        <li class="mx-3">
+          <RouterLink to="/routes">所有路線</RouterLink>
+        </li>
+        <li class="mx-3">
+          <RouterLink to="/activities">路騎活動</RouterLink>
+        </li>
+        <li class="mx-3">
+          <RouterLink to="/share">我要分享</RouterLink>
         </li>
         <li>
           <SignInBtn />
