@@ -10,19 +10,27 @@ import SignInBtn from "@/components/SignInBtn.vue";
         <RouterLink to="/">MOTO GO</RouterLink>
       </h1>
       <ul class="flex items-center">
-        <li class="mx-3">
+        <li
+          class="mx-3 border-b border-white hover:border-b hover:border-green-500"
+        >
           <RouterLink to="/todo">行前清點</RouterLink>
         </li>
-        <li class="mx-3">
+        <li
+          class="mx-3 border-b border-white hover:border-b hover:border-green-500"
+        >
           <RouterLink to="/routes">所有路線</RouterLink>
         </li>
-        <li class="mx-3">
+        <li
+          class="mx-3 border-b border-white hover:border-b hover:border-green-500"
+        >
           <RouterLink to="/activities">路騎活動</RouterLink>
         </li>
-        <li class="mx-3">
+        <li
+          class="mx-3 border-b border-white hover:border-b hover:border-green-500"
+        >
           <RouterLink to="/share">我要分享</RouterLink>
         </li>
-        <li>
+        <li class="ml-3">
           <SignInBtn />
         </li>
       </ul>
