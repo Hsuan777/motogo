@@ -14,9 +14,24 @@ const router = createRouter({
           component: () => import("../views/frontend/HomeView.vue"),
         },
         {
-          path: "/todo",
+          path: "todo",
           name: "ToDo",
           component: () => import("../views/frontend/ToDoView.vue"),
+        },
+        {
+          path: "routes",
+          name: "Routes",
+          component: () => import("../views/frontend/RoutesView.vue"),
+        },
+        {
+          path: "articles",
+          name: "Articles",
+          component: () => import("../views/frontend/ArticlesView.vue"),
+        },
+        {
+          path: "activities",
+          name: "Activities",
+          component: () => import("../views/frontend/ActivitiesView.vue"),
         },
       ],
     },
@@ -29,17 +44,17 @@ const router = createRouter({
         {
           path: "routes",
           name: "Routes",
-          component: () => import("../views/backend/RoutesView.vue"),
+          component: () => import("../views/backend/RoutesManage.vue"),
         },
         {
           path: "activities",
           name: "Activities",
-          component: () => import("../views/backend/ActivitiesView.vue"),
+          component: () => import("../views/backend/ActivitiesManage.vue"),
         },
         {
           path: "articles",
           name: "Articles",
-          component: () => import("../views/backend/ArticlesView.vue"),
+          component: () => import("../views/backend/ArticlesManage.vue"),
         },
         {
           path: ":pathMatch(.*)*",

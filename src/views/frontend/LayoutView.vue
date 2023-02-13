@@ -40,7 +40,7 @@ import SignInBtn from "@/components/SignInBtn.vue";
     <RouterView />
   </main>
   <footer
-    class="absolute top-full left-0 right-0 -translate-y-full bg-black text-white text-center py-6"
+    class="absolute top-full left-0 right-0 bg-black text-white text-center py-6"
   >
     <p>量力而為，開心騎乘</p>
   </footer>
