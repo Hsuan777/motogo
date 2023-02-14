@@ -5,7 +5,7 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "layout",
+      name: "Layout",
       component: () => import("../views/frontend/LayoutView.vue"),
       children: [
         {
@@ -43,17 +43,17 @@ const router = createRouter({
       children: [
         {
           path: "routes",
-          name: "Routes",
+          name: "RoutesManage",
           component: () => import("../views/backend/RoutesManage.vue"),
         },
         {
           path: "activities",
-          name: "Activities",
+          name: "ActivitiesManage",
           component: () => import("../views/backend/ActivitiesManage.vue"),
         },
         {
           path: "articles",
-          name: "Articles",
+          name: "ArticlesManage",
           component: () => import("../views/backend/ArticlesManage.vue"),
         },
         {

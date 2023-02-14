@@ -15,6 +15,16 @@ const menuOptions = [
     key: "routes",
     href: "http://localhost:5173/#/manage/routes",
   },
+  {
+    label: "活動管理",
+    key: "activities",
+    href: "http://localhost:5173/#/manage/activities",
+  },
+  {
+    label: "文章管理",
+    key: "articles",
+    href: "http://localhost:5173/#/manage/articles",
+  },
 ];
 const collapsed = ref(true);
 const renderMenuLabel = (option) => {

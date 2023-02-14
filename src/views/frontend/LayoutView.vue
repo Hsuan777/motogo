@@ -25,11 +25,11 @@ import SignInBtn from "@/components/SignInBtn.vue";
         >
           <RouterLink to="/activities">路騎活動</RouterLink>
         </li>
-        <li
+        <!-- <li
           class="mx-3 border-b border-white hover:border-b hover:border-green-500"
         >
           <RouterLink to="/share">我要分享</RouterLink>
-        </li>
+        </li> -->
         <li class="ml-3">
           <SignInBtn />
         </li>
