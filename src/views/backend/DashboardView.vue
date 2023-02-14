@@ -1,7 +1,11 @@
 <script setup>
 import { h, ref } from "vue";
 import { NIcon, NSpace, NLayout, NLayoutSider, NMenu } from "naive-ui";
-import { BookmarkOutline, CaretDownOutline } from "@vicons/ionicons5";
+import {CaretDownOutline } from "@vicons/ionicons5";
+import { Dashboard } from "@vicons/carbon";
+import { Route } from "@vicons/fa";
+import { SportsMotorsportsFilled, ArticleOutlined } from "@vicons/material";
+
 import SignInBtn from "@/components/SignInBtn.vue";
 
 const menuOptions = [
@@ -34,9 +38,14 @@ const renderMenuLabel = (option) => {
   return option.label;
 };
 const renderMenuIcon = (option) => {
-  if (option.key === "sheep-man") return true;
-  if (option.key === "food") return null;
-  return h(NIcon, null, { default: () => h(BookmarkOutline) });
+  if (option.key === "manage")
+    return h(NIcon, null, { default: () => h(Dashboard) });
+  if (option.key === "routes")
+    return h(NIcon, null, { default: () => h(Route) });
+  if (option.key === "activities")
+    return h(NIcon, null, { default: () => h(SportsMotorsportsFilled) });
+  if (option.key === "articles")
+    return h(NIcon, null, { default: () => h(ArticleOutlined) });
 };
 const expandIcon = () => {
   return h(NIcon, null, { default: () => h(CaretDownOutline) });
@@ -54,22 +63,7 @@ const expandIcon = () => {
         <li
           class="mx-3 border-b border-white hover:border-b hover:border-green-500"
         >
-          <RouterLink to="/todo" target="_blank">行前清點</RouterLink>
-        </li>
-        <li
-          class="mx-3 border-b border-white hover:border-b hover:border-green-500"
-        >
-          <RouterLink to="/routes">所有路線</RouterLink>
-        </li>
-        <li
-          class="mx-3 border-b border-white hover:border-b hover:border-green-500"
-        >
-          <RouterLink to="/activities">路騎活動</RouterLink>
-        </li>
-        <li
-          class="mx-3 border-b border-white hover:border-b hover:border-green-500"
-        >
-          <RouterLink to="/share">我要分享</RouterLink>
+          <RouterLink to="/" target="_blank">回到前台</RouterLink>
         </li>
         <li class="ml-3">
           <SignInBtn />
@@ -77,31 +71,33 @@ const expandIcon = () => {
       </ul>
     </nav>
   </header>
-  <n-space vertical>
-    <n-layout has-sider>
-      <n-layout-sider
-        bordered
-        collapse-mode="width"
-        :collapsed-width="64"
-        :width="240"
-        :collapsed="collapsed"
-        show-trigger
-        @collapse="collapsed = true"
-        @expand="collapsed = false"
-      >
-        <n-menu
-          :collapsed="collapsed"
+  <main>
+    <n-space vertical>
+      <n-layout has-sider>
+        <n-layout-sider
+          bordered
+          collapse-mode="width"
           :collapsed-width="64"
-          :collapsed-icon-size="22"
-          :options="menuOptions"
-          :render-label="renderMenuLabel"
-          :render-icon="renderMenuIcon"
-          :expand-icon="expandIcon"
-        />
-      </n-layout-sider>
-      <n-layout>
-        <RouterView />
+          :width="240"
+          :collapsed="collapsed"
+          show-trigger
+          @collapse="collapsed = true"
+          @expand="collapsed = false"
+        >
+          <n-menu
+            :collapsed="collapsed"
+            :collapsed-width="64"
+            :collapsed-icon-size="24"
+            :options="menuOptions"
+            :render-label="renderMenuLabel"
+            :render-icon="renderMenuIcon"
+            :expand-icon="expandIcon"
+          />
+        </n-layout-sider>
+        <n-layout>
+          <RouterView />
+        </n-layout>
       </n-layout>
-    </n-layout>
-  </n-space>
+    </n-space>
+  </main>
 </template>
