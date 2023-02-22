@@ -10,7 +10,7 @@ const showModal = ref(false);
 
 <template>
   <Loading :active="isLoading" />
-  <n-button type="primary" class="text-green-500" @click="showModal = true"
+  <n-button type="primary" class="bg-primary" @click="showModal = true"
     >登入</n-button
   >
   <n-modal v-model:show="showModal">

@@ -1,7 +1,7 @@
 <script setup>
 import { h, ref } from "vue";
 import { NIcon, NSpace, NLayout, NLayoutSider, NMenu } from "naive-ui";
-import {CaretDownOutline } from "@vicons/ionicons5";
+import { CaretDownOutline } from "@vicons/ionicons5";
 import { Dashboard } from "@vicons/carbon";
 import { Route } from "@vicons/fa";
 import { SportsMotorsportsFilled, ArticleOutlined } from "@vicons/material";
