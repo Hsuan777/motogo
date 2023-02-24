@@ -1,4 +1,4 @@
 
 <template>
-  <h2>Route</h2>
+  <h2>Routes</h2>
 </template>

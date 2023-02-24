@@ -1,14 +1,19 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
+import { NIcon } from "naive-ui";
+import { SportsMotorsportsFilled } from "@vicons/material";
 import SignInBtn from "@/components/SignInBtn.vue";
 </script>
 
 <template>
   <header class="container">
     <nav class="flex items-center my-4">
-      <h1 class="text-black mr-auto text-2xl leading-normal">
-        <RouterLink to="/">MOTO GO</RouterLink>
-      </h1>
+      <div class="flex items-center mr-auto">
+        <n-icon size="40" :component="SportsMotorsportsFilled" class="mr-1"/>
+        <h1 class="text-black text-2xl italic leading-normal">
+          <RouterLink to="/">MOTO GO</RouterLink>
+        </h1>
+      </div>
       <ul class="flex items-center">
         <li
           class="mx-3 border-b border-white hover:border-b hover:border-green-500"
