@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from "vue";
+import { ref } from "vue";
 import { RouterLink } from "vue-router";
 import { NButton, NInputGroup, NInput, NIcon } from "naive-ui";
 import { Search } from "@vicons/ionicons5";
@@ -11,6 +11,7 @@ import * as topojson from "topojson-client";
 const county_geomap_api =
   "https://hexschool.github.io/tw_revenue/taiwan-geomap.json";
 
+const pathCountyName = ref("");
 const getTaiwanMap = () => {
   axios.get(county_geomap_api).then((res) => {
     drawMap(res.data);
@@ -52,15 +53,7 @@ const drawMap = (mapData) => {
   d3.select("#map")
     .selectAll("path")
     .on("mouseenter", (e) => {
-      console.log(e.target.attributes);
-      let pathCountyName = e.target.attributes[2] || "";
-      console.log(pathCountyName);
-      // let countyRevenue =
-      //   county_revenueData.filter(
-      //     (item) => item.city === pathCountyName.value
-      //   )[0] || "";
-      // cityName.innerHTML = pathCountyName.value || "";
-      // cityRevenue.innerHTML = countyRevenue.revenue || "";
+      pathCountyName.value = e.target.attributes.countyName.value || "";
     });
 };
 getTaiwanMap();
@@ -99,13 +92,13 @@ getTaiwanMap();
       <h2 class="text-3xl mb-6">熱門路線</h2>
       <div class="flex items-center my-3 bg-black">
         <svg id="map" class="map">
-          <g class="fill-gray-300 hover:fill-primary"></g>
+          <g class="counties"></g>
           <path
             class="county-borders fill-none stroke-gray-400 stroke-1"
           ></path>
         </svg>
         <div class="text-center">
-          <h2 class=""></h2>
+          <h2 class="text-white">{{ pathCountyName }}</h2>
         </div>
       </div>
     </section>
@@ -141,3 +134,12 @@ getTaiwanMap();
     </div>
   </section>
 </template>
+<style>
+.counties {
+  fill: #d1d5db;
+}
+.counties :hover {
+  fill: #19A96E;
+  transition: 0.5s;
+}
+</style>
