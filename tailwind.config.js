@@ -17,7 +17,12 @@ module.exports = {
       transparent: "transparent",
       black: colors.black,
       white: colors.white,
-      gray: colors.gray,
+      // gray: colors.gray,
+      gray: {
+        DEFAULT: "#717171",
+        dark: "#222222",
+        light: "#DDDDDD",
+      },
       emerald: colors.emerald,
       indigo: colors.indigo,
       yellow: colors.yellow,
