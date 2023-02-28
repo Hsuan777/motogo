@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 # 當發生錯誤時終止腳本運行
 set -e
+rm -rf dist
 # 建立輸出檔案
 npm run build
-
 # 移動至到打包後的dist目錄
 cd dist
 

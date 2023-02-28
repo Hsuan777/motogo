@@ -1,5 +1,6 @@
 <script setup>
 import { h, ref } from "vue";
+import { RouterLink, RouterView } from "vue-router";
 import { NIcon, NSpace, NLayout, NLayoutSider, NMenu, NButton } from "naive-ui";
 import { CaretDownOutline } from "@vicons/ionicons5";
 import { Dashboard } from "@vicons/carbon";
@@ -8,33 +9,59 @@ import { SportsMotorsportsFilled, ArticleOutlined } from "@vicons/material";
 
 const menuOptions = [
   {
-    label: "總覽",
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            path: "/manage",
+          },
+        },
+        { default: () => "總覽" }
+      ),
     key: "manage",
-    href: "http://localhost:5173/#/manage",
   },
   {
-    label: "路線管理",
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            path: "/manage/routes",
+          },
+        },
+        { default: () => "路線管理" }
+      ),
     key: "routes",
-    href: "http://localhost:5173/#/manage/routes",
   },
   {
-    label: "活動管理",
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            path: "/manage/activities",
+          },
+        },
+        { default: () => "活動管理" }
+      ),
     key: "activities",
-    href: "http://localhost:5173/#/manage/activities",
   },
   {
-    label: "文章管理",
+    label: () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            path: "/manage/articles",
+          },
+        },
+        { default: () => "文章管理" }
+      ),
     key: "articles",
-    href: "http://localhost:5173/#/manage/articles",
   },
 ];
 const collapsed = ref(true);
-const renderMenuLabel = (option) => {
-  if ("href" in option) {
-    return h("a", { href: option.href }, [option.label]);
-  }
-  return option.label;
-};
 const renderMenuIcon = (option) => {
   if (option.key === "manage")
     return h(NIcon, null, { default: () => h(Dashboard) });
@@ -87,7 +114,6 @@ const expandIcon = () => {
             :collapsed-width="64"
             :collapsed-icon-size="24"
             :options="menuOptions"
-            :render-label="renderMenuLabel"
             :render-icon="renderMenuIcon"
             :expand-icon="expandIcon"
           />
