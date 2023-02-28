@@ -2,7 +2,7 @@
 import { RouterLink, RouterView } from "vue-router";
 import { NIcon } from "naive-ui";
 import { SportsMotorsportsFilled } from "@vicons/material";
-import SignInBtn from "@/components/SignInBtn.vue";
+import SignInBtn from "@/components/modal/SignIn.vue";
 </script>
 
 <template>
