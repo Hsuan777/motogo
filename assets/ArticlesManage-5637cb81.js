@@ -1,0 +1,1 @@
+import{_ as e}from"./plugin-vueexport-helper-c27b6911.js";import{as as r,o as c}from"./index-f38c0755.js";const o={};function t(n,a){return r(),c("h2",null,"文章")}const f=e(o,[["render",t]]);export{f as default};

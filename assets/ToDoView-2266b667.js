@@ -1,0 +1,1 @@
+import{_ as o}from"./plugin-vueexport-helper-c27b6911.js";import{as as e,o as t,p as s}from"./index-f38c0755.js";const c={},n={class:"container"},r=s("p",null,"About MotoGo",-1),_=[r];function a(i,d){return e(),t("div",n,_)}const p=o(c,[["render",a]]);export{p as default};

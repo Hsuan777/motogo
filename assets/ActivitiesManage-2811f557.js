@@ -1,0 +1,1 @@
+import{_ as e}from"./plugin-vueexport-helper-c27b6911.js";import{as as t,o as c}from"./index-f38c0755.js";const o={};function r(n,a){return t(),c("h2",null,"活動")}const f=e(o,[["render",r]]);export{f as default};
