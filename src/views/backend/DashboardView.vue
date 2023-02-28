@@ -1,12 +1,10 @@
 <script setup>
 import { h, ref } from "vue";
-import { NIcon, NSpace, NLayout, NLayoutSider, NMenu } from "naive-ui";
+import { NIcon, NSpace, NLayout, NLayoutSider, NMenu, NButton } from "naive-ui";
 import { CaretDownOutline } from "@vicons/ionicons5";
 import { Dashboard } from "@vicons/carbon";
 import { Route } from "@vicons/fa";
 import { SportsMotorsportsFilled, ArticleOutlined } from "@vicons/material";
-
-import SignInBtn from "@/components/SignInBtn.vue";
 
 const menuOptions = [
   {
@@ -66,7 +64,7 @@ const expandIcon = () => {
           <RouterLink to="/" target="_blank">回到前台</RouterLink>
         </li>
         <li class="ml-3">
-          <SignInBtn />
+          <n-button type="primary" class="bg-primary">登出</n-button>
         </li>
       </ul>
     </nav>

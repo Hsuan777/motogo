@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import Loading from "vue-loading-overlay";
-import { NButton, NModal, NCard } from "naive-ui";
+import { NButton, NModal } from "naive-ui";
 import { Field, Form, ErrorMessage } from "vee-validate";
 
 const isLoading = ref(false);

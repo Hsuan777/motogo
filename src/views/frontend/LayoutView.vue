@@ -2,7 +2,7 @@
 import { RouterLink, RouterView } from "vue-router";
 import { NIcon } from "naive-ui";
 import { SportsMotorsportsFilled } from "@vicons/material";
-import SignInBtn from "@/components/modal/SignIn.vue";
+import SignInModal from "@/components/modal/SignIn.vue";
 </script>
 
 <template>
@@ -36,7 +36,7 @@ import SignInBtn from "@/components/modal/SignIn.vue";
           <RouterLink to="/share">我要分享</RouterLink>
         </li> -->
         <li class="ml-3">
-          <SignInBtn />
+          <SignInModal />
         </li>
       </ul>
     </nav>
