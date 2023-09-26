@@ -14,24 +14,14 @@ const router = createRouter({
           component: () => import("../views/frontend/HomeView.vue"),
         },
         {
-          path: "todo",
-          name: "ToDo",
-          component: () => import("../views/frontend/ToDoView.vue"),
+          path: "itineraries",
+          name: "Itineraries",
+          component: () => import("../views/frontend/ItinerariesView.vue"),
         },
         {
-          path: "routes",
-          name: "Routes",
-          component: () => import("../views/frontend/RoutesView.vue"),
-        },
-        {
-          path: "route/:id",
-          name: "Route",
-          component: () => import("../views/frontend/RouteView.vue"),
-        },
-        {
-          path: "articles",
-          name: "Articles",
-          component: () => import("../views/frontend/ArticlesView.vue"),
+          path: "itineraries/:id",
+          name: "itinerary",
+          component: () => import("../views/frontend/ItineraryView.vue"),
         },
         {
           path: "activities",
