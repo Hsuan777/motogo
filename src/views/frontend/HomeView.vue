@@ -10,6 +10,7 @@ import * as topojson from "topojson-client";
 import { apiGetItineraries } from "@/apis/itineraries.js";
 import { apiGetActivities } from "@/apis/Activities.js";
 
+const inputSearch = ref("");
 // 台灣地圖
 const county_geomap_api = "https://hexschool.github.io/tw_revenue/taiwan-geomap.json";
 
@@ -54,23 +55,28 @@ const drawMap = (mapData) => {
 };
 getTaiwanMap();
 
-// 路線資料
+// 行程資料
 const itineraries = ref([]);
 const getItineraries = async () => {
   const { data } = await apiGetItineraries();
-  itineraries.value = data.data;
+  for (let x = 0; x < 8; x++) {
+    itineraries.value.push(data.data[x]);
+  }
 };
+// 活動資料
 const activities = ref([]);
 const getActivities = async () => {
   const { data } = await apiGetActivities();
-  activities.value = data.data;
+  for (let x = 0; x < 4; x++) {
+    activities.value.push(data.data[x]);
+  }
 };
+// 隨機取得一個行程
 const goToRandomItinerary = () => {
   const randomIndex = Math.floor(Math.random() * itineraries.value.length);
   const randomItem = itineraries.value[randomIndex];
   router.push(`/itineraries/${randomItem._id}`);
 };
-// const autocompleteInput = ref(null);
 onMounted(() => {
   getItineraries();
   getActivities();
@@ -91,9 +97,8 @@ onMounted(() => {
   <figure class="relative flex flex-col justify-center items-center h-[400px] mb-24 pb-1">
     <h2 class="text-5xl text-white mb-8">開始你的騎行之旅</h2>
     <n-input-group class="flex justify-center mb-5">
-      <!-- <n-input ref="autocompleteInput" :style="{ width: '25%' }" size="large" placeholder="想去哪裡呢？" class="rounded-lg" /> -->
-      <input id="autocomplete-input" type="text" placeholder="想去哪裡呢？" class="w-1/4 px-2 focus:outline-primary rounded-lg" />
-      <n-button type="primary" size="large" class="bg-primary rounded-lg">
+      <input id="autocomplete-input" v-model="inputSearch" type="text" placeholder="想去哪裡呢？" class="w-1/4 px-2 focus:outline-primary rounded-lg" />
+      <n-button type="primary" size="large" class="bg-primary rounded-lg" @click="router.push(`/itineraries?query=${inputSearch}`)">
         <n-icon size="24" :component="Search" />
       </n-button>
     </n-input-group>

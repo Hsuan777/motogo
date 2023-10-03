@@ -30,7 +30,7 @@ import SignInModal from "@/components/modal/SignIn.vue";
   <main>
     <RouterView />
   </main>
-  <footer class="absolute top-full left-0 right-0 bg-gray-dark text-white text-center mt-20 py-6">
+  <footer class="absolute top-full left-0 right-0 bg-gray-dark text-white text-center py-6">
     <p>量力而為，開心騎乘</p>
     <p class="text-sm text-gray">Copyright©此網站資訊與圖片版權為網路與各大社群所有，純個人作品分享，無盈利</p>
   </footer>
