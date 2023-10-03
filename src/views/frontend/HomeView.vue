@@ -1,12 +1,14 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import router from "@/router";
 import { RouterLink } from "vue-router";
-import { NButton, NInputGroup, NInput, NIcon } from "naive-ui";
+import { NButton, NInputGroup, NIcon } from "naive-ui";
 import { Search, Star, Flag } from "@vicons/ionicons5";
 import axios from "axios";
 import * as d3 from "d3";
 import * as topojson from "topojson-client";
 import { apiGetItineraries } from "@/apis/itineraries.js";
+import { apiGetActivities } from "@/apis/Activities.js";
 
 // 台灣地圖
 const county_geomap_api = "https://hexschool.github.io/tw_revenue/taiwan-geomap.json";
@@ -57,10 +59,30 @@ const itineraries = ref([]);
 const getItineraries = async () => {
   const { data } = await apiGetItineraries();
   itineraries.value = data.data;
-  console.log(data);
 };
+const activities = ref([]);
+const getActivities = async () => {
+  const { data } = await apiGetActivities();
+  activities.value = data.data;
+};
+const goToRandomItinerary = () => {
+  const randomIndex = Math.floor(Math.random() * itineraries.value.length);
+  const randomItem = itineraries.value[randomIndex];
+  router.push(`/itineraries/${randomItem._id}`);
+};
+// const autocompleteInput = ref(null);
 onMounted(() => {
   getItineraries();
+  getActivities();
+  const input = document.getElementById("autocomplete-input");
+  // console.log(autocompleteInput.value);
+  const autocomplete = new window.google.maps.places.Autocomplete(input);
+  autocomplete.addListener("place_changed", function () {
+    const place = autocomplete.getPlace();
+
+    console.log(place.name);
+    input.value = place.name;
+  });
 });
 </script>
 
@@ -69,12 +91,13 @@ onMounted(() => {
   <figure class="relative flex flex-col justify-center items-center h-[400px] mb-24 pb-1">
     <h2 class="text-5xl text-white mb-8">開始你的騎行之旅</h2>
     <n-input-group class="flex justify-center mb-5">
-      <n-input :style="{ width: '25%' }" size="large" placeholder="想去哪裡呢？" class="rounded-lg" />
+      <!-- <n-input ref="autocompleteInput" :style="{ width: '25%' }" size="large" placeholder="想去哪裡呢？" class="rounded-lg" /> -->
+      <input id="autocomplete-input" type="text" placeholder="想去哪裡呢？" class="w-1/4 px-2 focus:outline-primary rounded-lg" />
       <n-button type="primary" size="large" class="bg-primary rounded-lg">
         <n-icon size="24" :component="Search" />
       </n-button>
     </n-input-group>
-    <RouterLink to="/routes" class="text-white underline underline-offset-4">隨機一個 GO!</RouterLink>
+    <a @click.prevent="goToRandomItinerary()" class="text-white underline underline-offset-4 cursor-pointer">隨機一個 GO!</a>
     <img class="absolute inset-0 w-full object-center object-cover h-full -z-10" type="image" src="@/assets/images/banner.avif" alt="banner" />
   </figure>
   <div class="container">
@@ -111,9 +134,9 @@ onMounted(() => {
         </div>
       </div>
     </section>
-    <!-- 推薦路線 -->
+    <!-- 公路與景點 -->
     <section class="border-b border-gray-light pb-24 mb-10">
-      <h2 class="text-3xl mb-6">今日推薦</h2>
+      <h2 class="text-3xl mb-6">公路與景點</h2>
       <ul class="grid grid-cols-4 gap-6">
         <li v-for="itinerary in itineraries" :key="itinerary._id" class="relative pb-5">
           <div class="flex justify-between items-center">
@@ -121,12 +144,14 @@ onMounted(() => {
             <span v-for="(tag, index) in itinerary.tags" :key="tag + index" class="ml-auto mr-3 text-white bg-primary rounded-lg px-2">{{ tag }}</span>
             <span class="text-white bg-gray rounded-lg px-2">{{ itinerary.type }}</span>
           </div>
-          <img :src="itinerary.imageUrl" alt="" class="w-full h-[200px] object-cover object-top rounded-lg mb-2" />
+          <RouterLink :to="'/itineraries/' + itinerary._id">
+            <img :src="itinerary.imageUrl" alt="" class="w-full h-[200px] object-cover object-top rounded-lg mb-2" />
+          </RouterLink>
           <p class="line-clamp-3 text-sm mb-2">{{ itinerary.description }}</p>
           <div class="absolute bottom-0 left-0 flex items-center">
             <div class="flex items-center mr-5">
               <n-icon size="16" :component="Star" class="mr-1 text-primary" />
-              <span>4.5</span>
+              <span>{{ itinerary.stars }}</span>
             </div>
             <div class="flex items-center">
               <n-icon size="16" :component="Flag" class="mr-1 text-primary" />
@@ -138,16 +163,22 @@ onMounted(() => {
     </section>
     <!-- 路騎活動 -->
     <section class="pb-24">
-      <h2 class="text-3xl mb-6">路騎活動</h2>
+      <h2 class="text-3xl mb-6">活動</h2>
       <ul class="grid grid-cols-4 gap-6">
-        <li>
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHYninF_cn2qXNKsQTxV2wV1KPjmAxbLUS0A&usqp=CAU" alt="" class="w-full h-[400px] object-cover rounded-lg mb-2" />
-          <h3 class="text-xl mb-1">BOL 6 騎士咖啡盃</h3>
-          <p class="text-sm mb-2">贊助店家往返，完成者會提供紀念品。</p>
-          <div class="flex items-center">
+        <li v-for="activity in activities" :key="activity._id" class="relative pb-5">
+          <div class="flex justify-between items-center">
+            <h3 class="text-xl mb-1">{{ activity.name }}</h3>
+            <span v-for="(tag, index) in activity.tags" :key="tag + index" class="ml-auto mr-3 text-white bg-primary rounded-lg px-2">{{ tag }}</span>
+            <span class="text-white bg-gray rounded-lg px-2">{{ activity.type }}</span>
+          </div>
+          <RouterLink :to="'/activities/' + activity._id">
+            <img :src="activity.imageUrl" alt="" class="w-full h-[400px] object-cover object-top rounded-lg mb-2" />
+          </RouterLink>
+          <p class="line-clamp-3 text-sm mb-2">{{ activity.description }}</p>
+          <div class="absolute bottom-0 left-0 flex items-center">
             <div class="flex items-center mr-5">
               <n-icon size="16" :component="Star" class="mr-1 text-primary" />
-              <span>4.9</span>
+              <span>4.5</span>
             </div>
             <div class="flex items-center">
               <n-icon size="16" :component="Flag" class="mr-1 text-primary" />

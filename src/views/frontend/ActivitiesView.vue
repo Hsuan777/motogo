@@ -1,5 +1,3 @@
-<script setup></script>
-
 <template>
-  <h2>活動</h2>
+  <h2>Routes</h2>
 </template>

@@ -3,7 +3,21 @@ const colors = require("tailwindcss/colors");
 module.exports = {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        digital: ["Digital"],
+      },
+      animation: {
+        scale: "scale 5s ease-in-out infinite",
+      },
+      keyframes: {
+        scale: {
+          "0%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.5)" },
+          "100%": { transform: "scale(1)" },
+        },
+      },
+    },
     container: {
       padding: "1rem",
       center: true,
@@ -17,6 +31,7 @@ module.exports = {
       transparent: "transparent",
       black: colors.black,
       white: colors.white,
+      blue: colors.blue,
       // gray: colors.gray,
       gray: {
         DEFAULT: "#717171",

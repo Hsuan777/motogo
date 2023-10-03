@@ -28,6 +28,11 @@ const router = createRouter({
           name: "Activities",
           component: () => import("../views/frontend/ActivitiesView.vue"),
         },
+        {
+          path: "activities/:id",
+          name: "Activity",
+          component: () => import("../views/frontend/ActivityView.vue"),
+        },
       ],
     },
     // 後台路由
