@@ -22,10 +22,11 @@ window.scrollTo(0, 0);
       <img :src="activity.imageUrl" alt="" class="w-1/2 h-[400px] object-cover object-top translate-y-1/4 rounded-lg" />
     </div>
   </div>
-  <div class="container border border-gray-light py-10">
+  <div class="container border border-gray-light py-10 mb-10">
     <section class="flex flex-col items-center">
       <h2 class="text-center text-4xl mb-5">{{ activity.type }}描述</h2>
       <p class="w-1/2 text-lg">{{ activity.description }}</p>
     </section>
   </div>
+  <div class="py-10 bg-white"></div>
 </template>

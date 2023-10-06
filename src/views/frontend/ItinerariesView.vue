@@ -50,7 +50,7 @@ const changeTypeOrTag = () => {
   }
 };
 const changeQuery = () => {
-  if (query.value === "") {
+  if (query.value === "" || query.value === undefined) {
     changeTypeOrTag();
   } else {
     const filterData = itineraries.value.filter((item) => item.name.includes(query.value));

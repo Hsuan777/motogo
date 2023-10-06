@@ -1,7 +1,5 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import { NIcon } from "naive-ui";
-import { SportsMotorsportsFilled } from "@vicons/material";
 import SignInModal from "@/components/modal/SignIn.vue";
 </script>
 
@@ -9,7 +7,7 @@ import SignInModal from "@/components/modal/SignIn.vue";
   <header class="container">
     <nav class="flex items-center my-4">
       <div class="flex items-center mr-auto">
-        <n-icon size="40" :component="SportsMotorsportsFilled" class="mr-1" />
+        <img src="/motor-helmet.png" alt="motor-helmet" class="w-10 h-10 mr-1" />
         <h1 class="text-black text-2xl italic leading-normal">
           <RouterLink to="/">MOTO GO</RouterLink>
         </h1>

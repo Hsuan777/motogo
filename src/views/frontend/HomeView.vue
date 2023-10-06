@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import router from "@/router";
 import { RouterLink } from "vue-router";
 import { NButton, NInputGroup, NIcon } from "naive-ui";
@@ -9,12 +9,13 @@ import * as d3 from "d3";
 import * as topojson from "topojson-client";
 import { apiGetItineraries } from "@/apis/itineraries.js";
 import { apiGetActivities } from "@/apis/Activities.js";
-
+import "https://maps.googleapis.com/maps/api/js?key=AIzaSyB6HkZsdop6HGQ7PAjX75lWoeEuq5jjJyY&libraries=places";
 const inputSearch = ref("");
 // 台灣地圖
 const county_geomap_api = "https://hexschool.github.io/tw_revenue/taiwan-geomap.json";
 
 const pathCountyName = ref("");
+const countyItineraries = ref([]);
 const getTaiwanMap = () => {
   axios.get(county_geomap_api).then((res) => {
     drawMap(res.data);
@@ -49,16 +50,18 @@ const drawMap = (mapData) => {
   );
   d3.select("#map")
     .selectAll("path")
-    .on("mouseenter", (e) => {
-      pathCountyName.value = e.target.attributes.countyName.value || "";
+    .on("click", (e) => {
+      pathCountyName.value = e.target.attributes.countyName?.value || "";
     });
 };
 getTaiwanMap();
 
 // 行程資料
 const itineraries = ref([]);
+const originItineraries = ref([]);
 const getItineraries = async () => {
   const { data } = await apiGetItineraries();
+  originItineraries.value = data.data;
   for (let x = 0; x < 8; x++) {
     itineraries.value.push(data.data[x]);
   }
@@ -77,16 +80,24 @@ const goToRandomItinerary = () => {
   const randomItem = itineraries.value[randomIndex];
   router.push(`/itineraries/${randomItem._id}`);
 };
+watch(
+  () => pathCountyName.value,
+  () => {
+    const str = pathCountyName.value.replace(/縣|市/g, "");
+    countyItineraries.value = originItineraries.value.filter((item) => item.location.includes(str));
+    if (!pathCountyName.value) {
+      countyItineraries.value = originItineraries.value;
+    }
+  }
+);
+
 onMounted(() => {
   getItineraries();
   getActivities();
   const input = document.getElementById("autocomplete-input");
-  // console.log(autocompleteInput.value);
   const autocomplete = new window.google.maps.places.Autocomplete(input);
   autocomplete.addListener("place_changed", function () {
     const place = autocomplete.getPlace();
-
-    console.log(place.name);
     input.value = place.name;
   });
 });
@@ -116,26 +127,28 @@ onMounted(() => {
             <path class="county-borders fill-none stroke-gray stroke-1"></path>
           </svg>
         </div>
-        <div class="w-full p-10 bg-gray-dark">
-          <ul class="text-white">
-            <li class="flex justify-between border-b border-gray pb-4">
-              <div>
-                <h3 class="text-xl mb-2">{{ pathCountyName }}</h3>
-                <p class="mb-2">武嶺，公路可達的最高點，無論是北中南車友都推薦一遊。</p>
+        <div class="w-full text-white bg-gray-dark p-10">
+          <h3 class="text-xl mb-2">{{ pathCountyName }}</h3>
+          <ul v-if="countyItineraries.length > 0" class="overflow-y-auto max-h-[500px]">
+            <li v-for="itinerary in countyItineraries" :key="itinerary._id" class="flex justify-between border-b border-gray py-4">
+              <div class="w-4/6">
+                <p>{{ itinerary.name }}</p>
+                <p class="line-clamp-3 mb-2">{{ itinerary.description }}</p>
                 <div class="flex items-center">
                   <div class="flex items-center mr-5">
                     <n-icon size="16" :component="Star" class="mr-1 text-primary" />
-                    <span>4.9</span>
+                    <span>{{ itinerary.stars }}</span>
                   </div>
                   <div class="flex items-center">
                     <n-icon size="16" :component="Flag" class="mr-1 text-primary" />
-                    <span>3,234</span>
+                    <span>{{ itinerary.finishedCount }}</span>
                   </div>
                 </div>
               </div>
-              <img src="https://fakeimg.pl/200x120/" alt="" />
+              <img :src="itinerary.imageUrl" :alt="itinerary.name" class="w-[200px] h-[120px] object-cover rounded" />
             </li>
           </ul>
+          <p v-else>陸續新增，敬請期待</p>
         </div>
       </div>
     </section>
@@ -160,7 +173,7 @@ onMounted(() => {
             </div>
             <div class="flex items-center">
               <n-icon size="16" :component="Flag" class="mr-1 text-primary" />
-              <span>3,234</span>
+              <span>{{ itinerary.finishedCount }}</span>
             </div>
           </div>
         </li>

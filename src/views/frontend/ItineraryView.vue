@@ -9,10 +9,9 @@ const apiKey = import.meta.env.VITE_Google_API_Key;
 const place = ref({});
 const getGooglePlace = async () => {
   const { data } = await axios.get(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${itinerary.value.name}&key=${apiKey}`);
-  console.log(data);
   place.value = data.results[0];
   getGooglePlaceDetails(data.results[0].place_id);
-  getGoolePlaceNear(place.value.geometry.location);
+  // getGoolePlaceNear(place.value.geometry.location);
 };
 const placeDetails = ref({});
 const getGooglePlaceDetails = async (placeId) => {
@@ -25,13 +24,12 @@ const getGooglePlaceDetails = async (placeId) => {
 const getGooglePlacePhoto = (photo_reference) => {
   return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo_reference}&key=${apiKey}`;
 };
-const getGoolePlaceNear = async (location) => {
-  console.log(location);
-  const radius = 1000;
-  const keyword = "景點";
-  const { data } = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat + "," + location.lng}&radius=${radius}&keyword=${keyword}&key=${apiKey}`);
-  console.log(data);
-};
+// const getGoolePlaceNear = async (location) => {
+//   const radius = 1000;
+//   const keyword = "景點";
+//   const { data } = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat + "," + location.lng}&radius=${radius}&keyword=${keyword}&key=${apiKey}`);
+//   console.log(data);
+// };
 const itinerary = ref({});
 const getItinerary = async () => {
   const { data } = await apiGetItinerary(router.currentRoute.value.params.id);
@@ -75,12 +73,10 @@ const clickGO = () => {
     if (option.series[0].data[0].value === 100) {
       clearInterval(addSpeed);
       if (itinerary.value?.shareLink) {
-        console.log(itinerary.value?.shareLink);
         setTimeout(() => {
           window.open(itinerary.value?.shareLink, "_blank");
         }, 1000);
       } else {
-        console.log(`https://www.google.com/maps/dir//${itinerary.value.name}`);
         setTimeout(() => {
           window.open(`https://www.google.com/maps/dir//${itinerary.value.name}`, "_blank");
         }, 1000);
@@ -138,7 +134,5 @@ onMounted(() => {
       ，就出發！」
     </p>
     <div ref="gaugeDom" class="w-80 h-80"></div>
-    <!-- <a v-if="itinerary?.shareLink" :href="itinerary.shareLink" target="_blank" class="text-2xl rounded-full border p-10">GO!</a>
-    <a v-else :href="`https://www.google.com/maps/dir//${itinerary.name}`" target="_blank" class="text-2xl rounded-full border p-10">GO!</a> -->
   </section>
 </template>
