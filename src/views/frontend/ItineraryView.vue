@@ -37,7 +37,6 @@ const getItinerary = async () => {
   if (itinerary.value.type === "景點") getGooglePlace();
 };
 getItinerary();
-window.scrollTo(0, 0);
 
 const gaugeDom = ref(null);
 const gaugeChart = ref(null);

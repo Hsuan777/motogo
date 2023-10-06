@@ -5,6 +5,7 @@ import { NIcon } from "naive-ui";
 import { Star, Flag } from "@vicons/ionicons5";
 import { apiGetItineraries } from "@/apis/itineraries.js";
 
+window.scrollTo(0, 0);
 const itinerariesType = ref([]);
 const itinerariesTags = ref([]);
 const query = ref("");

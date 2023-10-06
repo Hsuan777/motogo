@@ -143,7 +143,10 @@ onMounted(() => {
                   </div>
                 </div>
               </div>
-              <img :src="itinerary.imageUrl" :alt="itinerary.name" class="w-[200px] h-[120px] object-cover rounded" />
+              <RouterLink :to="'/itineraries/' + itinerary._id">
+                <img :src="itinerary.imageUrl" alt="" class="w-[200px] h-[120px] object-cover rounded" />
+              </RouterLink>
+              <!-- <img :src="itinerary.imageUrl" :alt="itinerary.name" class="w-[200px] h-[120px] object-cover rounded" /> -->
             </li>
           </ul>
           <p v-else>陸續新增資料，請點擊其他縣市</p>
@@ -211,7 +214,7 @@ onMounted(() => {
       <div class="w-1/2 flex flex-col justify-center pr-36">
         <h2 class="text-3xl mb-6">透過 MOTO GO，你可以探索各種路線與路騎活動。</h2>
         <p class="mb-6">摩托車，台灣最多人擁有的車種，但它不只是短途通勤的工具，也是出門的最佳夥伴。有了目的，再跨上摩托車，你會發現不一樣的自己，不論排氣量，只要享受與車子前進的時光就行。</p>
-        <n-button type="primary" size="" class="w-1/6 bg-primary rounded"> GO~ </n-button>
+        <RouterLink to="/itineraries" class="w-1/6 bg-primary text-white text-center rounded p-2"> GO~ </RouterLink>
       </div>
       <img class="object-cover" type="image" src="@/assets/images/about-picture.avif" alt="about" />
     </div>
