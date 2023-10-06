@@ -14,7 +14,7 @@ const inputSearch = ref("");
 // 台灣地圖
 const county_geomap_api = "https://hexschool.github.io/tw_revenue/taiwan-geomap.json";
 
-const pathCountyName = ref("");
+const pathCountyName = ref("請點擊地圖任一縣市");
 const countyItineraries = ref([]);
 const getTaiwanMap = () => {
   axios.get(county_geomap_api).then((res) => {
@@ -51,7 +51,7 @@ const drawMap = (mapData) => {
   d3.select("#map")
     .selectAll("path")
     .on("click", (e) => {
-      pathCountyName.value = e.target.attributes.countyName?.value || "";
+      pathCountyName.value = e.target.attributes.countyName?.value || "請點擊地圖任一縣市";
     });
 };
 getTaiwanMap();
@@ -62,6 +62,7 @@ const originItineraries = ref([]);
 const getItineraries = async () => {
   const { data } = await apiGetItineraries();
   originItineraries.value = data.data;
+  countyItineraries.value = originItineraries.value;
   for (let x = 0; x < 8; x++) {
     itineraries.value.push(data.data[x]);
   }
@@ -85,9 +86,6 @@ watch(
   () => {
     const str = pathCountyName.value.replace(/縣|市/g, "");
     countyItineraries.value = originItineraries.value.filter((item) => item.location.includes(str));
-    if (!pathCountyName.value) {
-      countyItineraries.value = originItineraries.value;
-    }
   }
 );
 
@@ -129,7 +127,7 @@ onMounted(() => {
         </div>
         <div class="w-full text-white bg-gray-dark p-10">
           <h3 class="text-xl mb-2">{{ pathCountyName }}</h3>
-          <ul v-if="countyItineraries.length > 0" class="overflow-y-auto max-h-[500px]">
+          <ul v-if="countyItineraries.length > 0" class="overflow-y-auto max-h-[450px]">
             <li v-for="itinerary in countyItineraries" :key="itinerary._id" class="flex justify-between border-b border-gray py-4">
               <div class="w-4/6">
                 <p>{{ itinerary.name }}</p>
@@ -148,7 +146,7 @@ onMounted(() => {
               <img :src="itinerary.imageUrl" :alt="itinerary.name" class="w-[200px] h-[120px] object-cover rounded" />
             </li>
           </ul>
-          <p v-else>陸續新增，敬請期待</p>
+          <p v-else>陸續新增資料，請點擊其他縣市</p>
         </div>
       </div>
     </section>
