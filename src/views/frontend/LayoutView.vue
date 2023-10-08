@@ -44,6 +44,6 @@ import { RouterLink, RouterView } from "vue-router";
       </ul>
     </div>
     <p>量力而為，開心騎乘</p>
-    <p class="text-sm text-gray">Copyright©此網站資訊與圖片版權為網路與各大社群所有，純個人作品分享，無盈利</p>
+    <p class="text-sm text-gray">純個人作品分享，無盈利<br />Copyright©此網站部分資訊與圖片版權為網路與各大社群所有</p>
   </footer>
 </template>

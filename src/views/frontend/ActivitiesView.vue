@@ -15,7 +15,7 @@ getActivities();
   <!-- 路騎活動 -->
   <section class="container py-10">
     <h2 class="text-3xl mb-6">活動</h2>
-    <ul class="grid grid-cols-4 gap-6">
+    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       <li v-for="activity in activities" :key="activity._id" class="relative pb-5">
         <div class="flex justify-between items-center">
           <h3 class="text-xl mb-1">{{ activity.name }}</h3>

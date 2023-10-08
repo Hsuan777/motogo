@@ -116,7 +116,7 @@ onMounted(() => {
   </figure>
   <div class="container">
     <!--  熱門路線 -->
-    <section class="border-b border-gray-light pb-24 mb-10">
+    <section class="hidden lg:block border-b border-gray-light pb-24 mb-10">
       <h2 class="text-3xl mb-6">熱門路線</h2>
       <div class="flex">
         <div class="bg-black">
@@ -156,7 +156,7 @@ onMounted(() => {
     <!-- 公路與景點 -->
     <section class="border-b border-gray-light pb-24 mb-10">
       <h2 class="text-3xl mb-6">公路與景點</h2>
-      <ul class="grid grid-cols-4 gap-6">
+      <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         <li v-for="itinerary in itineraries" :key="itinerary._id" class="relative pb-5">
           <div class="flex justify-between items-center">
             <h3 class="text-xl mb-1">{{ itinerary.name }}</h3>
@@ -183,7 +183,7 @@ onMounted(() => {
     <!-- 路騎活動 -->
     <section class="pb-24">
       <h2 class="text-3xl mb-6">活動</h2>
-      <ul class="grid grid-cols-4 gap-6">
+      <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         <li v-for="activity in activities" :key="activity._id" class="relative pb-5">
           <div class="flex justify-between items-center">
             <h3 class="text-xl mb-1">{{ activity.name }}</h3>
@@ -191,7 +191,7 @@ onMounted(() => {
             <span class="text-white bg-gray rounded-lg px-2">{{ activity.type }}</span>
           </div>
           <RouterLink :to="'/activities/' + activity._id">
-            <img :src="activity.imageUrl" alt="" class="w-full h-[400px] object-cover object-top rounded-lg mb-2" />
+            <img :src="activity.imageUrl" alt="" class="w-full h-[300px] md:h-[400px] object-cover object-top rounded-lg mb-2" />
           </RouterLink>
           <p class="line-clamp-3 text-sm mb-2">{{ activity.description }}</p>
           <div class="absolute bottom-0 left-0 flex items-center">
@@ -209,14 +209,15 @@ onMounted(() => {
     </section>
   </div>
   <!-- About -->
-  <section class="flex h-[480px] bg-gray-light">
-    <div class="container flex">
-      <div class="w-1/2 flex flex-col justify-center pr-36">
+  <img class="xl:hidden object-cover w-full h-[400px]" type="image" src="@/assets/images/about-picture.avif" alt="about" />
+  <section class="flex xl:h-[480px] bg-gray-light">
+    <div class="container flex flex-col-reverse xl:flex-row">
+      <div class="xl:w-1/2 flex flex-col justify-center py-10 xl:py-0 xl:pr-36">
         <h2 class="text-3xl mb-6">透過 MOTO GO，你可以探索各種路線與路騎活動。</h2>
         <p class="mb-6">摩托車，台灣最多人擁有的車種，但它不只是短途通勤的工具，也是出門的最佳夥伴。有了目的，再跨上摩托車，你會發現不一樣的自己，不論排氣量，只要享受與車子前進的時光就行。</p>
         <RouterLink to="/itineraries" class="w-1/6 bg-primary text-white text-center rounded p-2"> GO~ </RouterLink>
       </div>
-      <img class="object-cover" type="image" src="@/assets/images/about-picture.avif" alt="about" />
+      <img class="hidden xl:block object-cover" type="image" src="@/assets/images/about-picture.avif" alt="about" />
     </div>
   </section>
 </template>

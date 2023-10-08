@@ -78,7 +78,7 @@ const changeQuery = () => {
         <input id="autocomplete-input" v-model="query" type="text" placeholder="想去哪裡呢？" class="p-2 border focus:outline-primary rounded-lg" @change="changeQuery" />
       </div>
     </div>
-    <ul class="grid grid-cols-4 gap-6">
+    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       <li v-for="itinerary in itineraries" :key="itinerary._id" class="relative pb-5">
         <div class="flex justify-between items-center">
           <h3 class="text-xl mb-1">{{ itinerary.name }}</h3>
