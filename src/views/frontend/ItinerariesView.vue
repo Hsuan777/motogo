@@ -62,20 +62,22 @@ const changeQuery = () => {
 <template>
   <!-- 公路與景點 -->
   <section class="container py-10">
-    <div class="flex items-center mb-6">
-      <h2 class="text-3xl mr-3">公路與景點</h2>
+    <div class="md:flex items-center mb-6">
+      <h2 class="text-3xl mr-3 mb-3 md:mb-0">公路與景點</h2>
       <div class="text-xl">
+        <!-- 類型 -->
         <span class="mr-1">類型：</span>
         <select name="" id="" v-model="selectType" @change="changeTypeOrTag" class="mr-1">
           <option value="所有" selected>所有</option>
           <option v-for="type in itinerariesType" :key="type" :value="type">{{ type }}</option>
         </select>
+        <!-- 標籤 -->
         <span class="mr-1">標籤：</span>
-        <select name="" id="" v-model="selectTag" @change="changeTypeOrTag" class="mr-3">
+        <select name="" id="" v-model="selectTag" @change="changeTypeOrTag" class="mr-3 mb-3 md:mb-0">
           <option value="所有" selected>所有</option>
           <option v-for="tag in itinerariesTags" :key="tag" :value="tag">{{ tag }}</option>
         </select>
-        <input id="autocomplete-input" v-model="query" type="text" placeholder="想去哪裡呢？" class="p-2 border focus:outline-primary rounded-lg" @change="changeQuery" />
+        <input id="autocomplete-input" v-model="query" type="text" placeholder="想去哪裡呢？" class="w-full md:w-1/3 p-2 border focus:outline-primary rounded-lg" @change="changeQuery" />
       </div>
     </div>
     <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

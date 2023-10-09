@@ -104,13 +104,15 @@ onMounted(() => {
 <template>
   <!-- Banner -->
   <figure class="relative flex flex-col justify-center items-center h-[400px] mb-24 pb-1">
-    <h2 class="text-5xl text-white mb-8">開始你的騎行之旅</h2>
-    <n-input-group class="flex justify-center mb-5">
-      <input id="autocomplete-input" v-model="inputSearch" type="text" placeholder="想去哪裡呢？" class="w-1/4 px-2 focus:outline-primary rounded-lg" />
-      <n-button type="primary" size="large" class="bg-primary rounded-lg" @click="router.push(`/itineraries?query=${inputSearch}`)">
-        <n-icon size="24" :component="Search" />
-      </n-button>
-    </n-input-group>
+    <div class="">
+      <h2 class="text-5xl text-white mb-8">開始你的騎行之旅</h2>
+      <n-input-group class="flex justify-center mb-5">
+        <input id="autocomplete-input" v-model="inputSearch" type="text" placeholder="想去哪裡呢？" class="w-full px-2 focus:outline-primary rounded-lg" />
+        <n-button type="primary" size="large" class="bg-primary rounded-lg" @click="router.push(`/itineraries?query=${inputSearch}`)">
+          <n-icon size="24" :component="Search" />
+        </n-button>
+      </n-input-group>
+    </div>
     <a @click.prevent="goToRandomItinerary()" class="text-white underline underline-offset-4 cursor-pointer">隨機一個 GO!</a>
     <img class="absolute inset-0 w-full object-center object-cover h-full -z-10" type="image" src="@/assets/images/banner.avif" alt="banner" />
   </figure>
