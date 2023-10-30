@@ -15,7 +15,6 @@ const getGooglePlace = async () => {
 };
 const placeDetails = ref({});
 const getGooglePlaceDetails = async (placeId) => {
-  const apiKey = import.meta.env.VITE_Google_API_Key;
   const { data } = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=photos&key=${apiKey}`);
   placeDetails.value = data.result;
   placeDetails.value.photos.length = 6;
