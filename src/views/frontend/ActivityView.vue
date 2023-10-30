@@ -12,7 +12,7 @@ getActivity();
 window.scrollTo(0, 0);
 </script>
 <template>
-  <div v-if="activity._id" class="bg-[url(https://images.unsplash.com/photo-1494783367193-149034c05e8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80)] bg-top">
+  <div v-if="activity._id" class="bg-[url(https://lh3.googleusercontent.com/pw/ADCreHelFd4tmhKl_d7h1vRTTrjuUzwrfr6LorFM8YtAH7z8zuP2ugyX7dH23joWR6tpuiFxLBhQBmhBcj719jiaSJabG_9kFztHI_1ir1uIK6dJvWEIPtNBor0KSgijg4lt3cTH_J2jjPkMMICiVcw1GwcS=w1888-h1416-s-no-gm?authuser=0)] bg-cover bg-[center_bottom_0rem]">
     <div class="container flex justify-around items-center mb-40">
       <div>
         <span class="text-white bg-gray rounded-lg px-2 mr-3">{{ activity.type }}</span>

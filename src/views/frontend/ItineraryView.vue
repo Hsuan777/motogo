@@ -92,14 +92,16 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div v-if="itinerary._id" class="bg-[url(https://images.unsplash.com/photo-1471958680802-1345a694ba6d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2766&q=80)] bg-bottom">
+  <div v-if="itinerary._id" class="bg-[url(https://lh3.googleusercontent.com/pw/ADCreHcLoNSYxltduDKcT8E47rjgWeVaz2s6LujuulRPJ_IhO1EW5xIetMYeYeE-FUFJQt1Fs8VR2K9IcpDgSvHbcmnpuDWRYgZKao6qt-L_ge1FKFCF-sYNpnttLdsc7hhCmJ98S1PVMGphJC2mKHbTP7Hv=w2518-h1416-s-no-gm?authuser=0)] bg-cover bg-center bg-no-repeat">
     <div class="container flex md:justify-around items-center md:mb-40">
       <div class="py-10">
         <span class="text-white bg-gray rounded-lg px-2 mr-3">{{ itinerary.type }}</span>
         <span v-for="(tag, index) in itinerary.tags" :key="tag + index" class="text-white bg-primary rounded-lg px-2">{{ tag }}</span>
         <h1 class="text-5xl text-white mt-1">{{ itinerary.name }}</h1>
       </div>
-      <img :src="itinerary.imageUrl" alt="" class="hidden md:block w-1/2 h-[400px] object-cover object-top translate-y-1/4 rounded-lg border-4 border-white" />
+      <div class="overflow-hidden hidden md:block w-1/2 h-[400px] translate-y-1/4 rounded-lg border-4 border-white">
+        <img :src="itinerary.imageUrl" alt="" class="object-cover object-top scale-110 transition-transform transform-growth" />
+      </div>
     </div>
   </div>
   <img :src="itinerary.imageUrl" alt="" class="w-full md:hidden h-[300px] object-cover object-top mt-1 mb-10" />
@@ -136,3 +138,17 @@ onMounted(() => {
     <div ref="gaugeDom" class="w-80 h-80"></div>
   </section>
 </template>
+<style>
+.transform-growth {
+  animation: growth 10s ease-in-out forwards;
+}
+
+@keyframes growth {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+</style>
