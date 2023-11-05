@@ -1,0 +1,1 @@
+import{_ as e}from"./plugin-vueexport-helper-c27b6911.js";import{o as t,Y as o,Z as s}from"./runtime-core.esm-bundler-6798075e.js";const c={},n={class:"text-center py-2"},r=s("p",{class:"text-center"},"請確認路徑是否正確。",-1),_=[r];function a(d,i){return t(),o("div",n,_)}const l=e(c,[["render",a]]);export{l as default};
