@@ -1,39 +1,22 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import router from "@/router";
-import axios from "axios";
-import { apiGetItinerary } from "@/apis/itineraries.js";
+import { apiGetItinerary, apiGetItineraryPhotos } from "@/apis/itineraries.js";
 import * as echarts from "echarts";
 
 const apiKey = import.meta.env.VITE_Google_API_Key;
-const place = ref({});
-const getGooglePlace = async () => {
-  const { data } = await axios.get(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${itinerary.value.name}&key=${apiKey}`);
-  place.value = data.results[0];
-  getGooglePlaceDetails(data.results[0].place_id);
-  // getGoolePlaceNear(place.value.geometry.location);
+const photos = ref([]);
+const getGooglePlacePhoto = async () => {
+  const { data } = await apiGetItineraryPhotos(itinerary.value.name);
+  photos.value = data.data;
+  photos.value.push(...data.data);
 };
-const placeDetails = ref({});
-const getGooglePlaceDetails = async (placeId) => {
-  const { data } = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=photos&key=${apiKey}`);
-  placeDetails.value = data.result;
-  placeDetails.value.photos.length = 6;
-  getGooglePlacePhoto();
-};
-const getGooglePlacePhoto = (photo_reference) => {
-  return `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo_reference}&key=${apiKey}`;
-};
-// const getGoolePlaceNear = async (location) => {
-//   const radius = 1000;
-//   const keyword = "景點";
-//   const { data } = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${location.lat + "," + location.lng}&radius=${radius}&keyword=${keyword}&key=${apiKey}`);
-//   console.log(data);
-// };
+
 const itinerary = ref({});
 const getItinerary = async () => {
   const { data } = await apiGetItinerary(router.currentRoute.value.params.id);
   itinerary.value = data.data;
-  if (itinerary.value.type === "景點") getGooglePlace();
+  if (itinerary.value.type === "景點") getGooglePlacePhoto();
 };
 getItinerary();
 
@@ -88,6 +71,23 @@ const clickGO = () => {
 onMounted(() => {
   gaugeChart.value = echarts.init(gaugeDom.value);
   gaugeChart.value.setOption(option);
+  setTimeout(() => {
+    window.gsap.to(".loop", {
+      xPercent: "-20",
+      ease: "none",
+      duration: 20,
+      repeat: -1,
+    });
+    const srollTL = window.gsap.timeline({
+      scrollTrigger: {
+        trigger: ".photos",
+        scrub: true,
+        start: "top 50%",
+        end: "top 15%",
+      },
+    });
+    srollTL.to(".photos", { xPercent: -100 });
+  }, 1000);
 });
 </script>
 <template>
@@ -109,17 +109,22 @@ onMounted(() => {
     <p class="xl:w-1/2 text-lg">{{ itinerary.description }}</p>
   </section>
   <!-- place photos -->
-  <section v-if="itinerary.type === '景點'" class="bg-black p-5 mb-10">
-    <ul class="flex justify-between mb-3">
-      <li v-for="num in 12" :key="num" class="bg-white w-5 h-6 rounded"></li>
+  <section v-if="itinerary.type === '景點'" class="overflow-hidden bg-black p-5 mb-10">
+    <ul class="loop flex mb-3">
+      <li v-for="num in 54" :key="num" class="bg-white h-6 mr-5 pr-5 rounded"></li>
     </ul>
-    <ul class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-5">
-      <li v-for="placeDetail in placeDetails.photos" :key="placeDetail.photo_reference">
-        <img :src="getGooglePlacePhoto(placeDetail.photo_reference)" alt="" class="w-full object-cover h-60 rounded" />
+    <!-- <ul class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-5">
+      <li v-for="(photo, index) in photos" :key="photo + index">
+        <img :src="photo" alt="" class="w-full object-cover h-60 rounded" />
+      </li>
+    </ul> -->
+    <ul class="photos flex gap-5">
+      <li v-for="(photo, index) in photos" :key="photo + index">
+        <img :src="photo" alt="" class="min-w-[200px] object-cover h-60 rounded" />
       </li>
     </ul>
-    <ul class="flex justify-between mt-3">
-      <li v-for="num in 12" :key="num" class="bg-white w-5 h-6 rounded"></li>
+    <ul class="loop flex mt-3">
+      <li v-for="num in 54" :key="num" class="bg-white h-6 mr-5 pr-5 rounded"></li>
     </ul>
   </section>
   <!-- map iframe -->
